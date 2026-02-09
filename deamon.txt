@@ -1,0 +1,2175 @@
+-- ts file was generated at discord.gg/25ms
+
+game:GetService('HttpService')
+
+local _LocalPlayer = game:GetService('Players').LocalPlayer
+local u2 = 'https://raw.githubusercontent.com/duycon10/Duy-scrip/refs/heads/main/Whitelist'
+local v3, v4 = pcall(function()
+    return loadstring(game:HttpGet(u2))()
+end)
+
+if v3 and v4 then
+    local v5 = v4.owners or {}
+    local v6 = v4.buyers or {}
+
+    local function v481(p7)
+        if p7 == 'Owner' then
+            local _ReplicatedStorage = game:GetService('ReplicatedStorage')
+            local _Players = game:GetService('Players')
+            local _VirtualInputManager = game:GetService('VirtualInputManager')
+            local _LocalPlayer2 = _Players.LocalPlayer
+            local _Lighting = game:GetService('Lighting')
+            local _rebirthRemote = _ReplicatedStorage.rEvents.rebirthRemote
+            local _muscleEvent = _LocalPlayer2:FindFirstChild('muscleEvent')
+            local _equipPetEvent = _ReplicatedStorage.rEvents.equipPetEvent
+            local _leaderstats = _LocalPlayer2:FindFirstChild('leaderstats')
+            local u17
+
+            if _leaderstats then
+                u17 = _leaderstats:FindFirstChild('Strength')
+            else
+                u17 = _leaderstats
+            end
+
+            local u18
+
+            if _leaderstats then
+                u18 = _leaderstats:FindFirstChild('Rebirths')
+            else
+                u18 = _leaderstats
+            end
+
+            local _petsFolder = _LocalPlayer2:FindFirstChild('petsFolder')
+            local _ultimatesFolder = _LocalPlayer2:FindFirstChild('ultimatesFolder')
+            local _machinesFolder = workspace:FindFirstChild('machinesFolder')
+            local _Backpack = _LocalPlayer2:WaitForChild('Backpack')
+
+            _Lighting.GlobalShadows = false
+            _Lighting.Brightness = 0.5
+            _Lighting.TimeOfDay = '14:00'
+
+            task.spawn(function()
+                local v23, v24, v25 = pairs(workspace:GetDescendants())
+
+                while true do
+                    local v26
+
+                    v25, v26 = v23(v24, v25)
+
+                    if v25 == nil then
+                        break
+                    end
+                    if v26:IsA('ParticleEmitter') or (v26:IsA('Beam') or (v26:IsA('Trail') or (v26:IsA('Decal') or (v26:IsA('Texture') or v26:IsA('BillboardGui'))))) then
+                        v26:Destroy()
+                    elseif v26:IsA('BasePart') then
+                        v26.Material = Enum.Material.SmoothPlastic
+                        v26.CastShadow = false
+                    end
+                end
+            end)
+            task.spawn(function()
+                local v27, v28, v29 = pairs(workspace:GetDescendants())
+
+                while true do
+                    local v30
+
+                    v29, v30 = v27(v28, v29)
+
+                    if v29 == nil then
+                        break
+                    end
+
+                    local v31 = v30.Name:lower()
+
+                    if v31:find('trail') or v31:find('aura') then
+                        v30:Destroy()
+                    end
+                end
+            end)
+            task.spawn(function()
+                while true do
+                    local _Character = _LocalPlayer2.Character
+
+                    if _Character then
+                        _Character = _LocalPlayer2.Character:FindFirstChild('HumanoidRootPart')
+                    end
+                    if _Character then
+                        local v33, v34, v35 = pairs(workspace:GetChildren())
+
+                        while true do
+                            local v36
+
+                            v35, v36 = v33(v34, v35)
+
+                            if v35 == nil then
+                                break
+                            end
+                            if (v36:IsA('Model') or v36:IsA('Part')) and (_Character.Position - v36.Position).Magnitude > 250 then
+                                v36:Destroy()
+                            end
+                        end
+                    end
+
+                    task.wait(3)
+                end
+            end)
+
+            local u37 = false
+
+            local function u38()
+                while u37 do
+                    for _ = 1, 10 do
+                        _muscleEvent:FireServer('rep', 75)
+                    end
+
+                    task.wait(0.005)
+                end
+            end
+            local function u48()
+                if _petsFolder then
+                    local v39 = _petsFolder
+                    local v40, v41, v42 = pairs(v39:GetChildren())
+
+                    while true do
+                        local v43
+
+                        v42, v43 = v40(v41, v42)
+
+                        if v42 == nil then
+                            break
+                        end
+                        if v43:IsA('Folder') then
+                            local v44, v45, v46 = pairs(v43:GetChildren())
+
+                            while true do
+                                local v47
+
+                                v46, v47 = v44(v45, v46)
+
+                                if v46 == nil then
+                                    break
+                                end
+
+                                _equipPetEvent:FireServer('unequipPet', v47)
+                            end
+                        end
+                    end
+                end
+
+                task.wait(0.1)
+            end
+            local function u54(p49)
+                if _petsFolder and _petsFolder:FindFirstChild('Unique') then
+                    u48()
+                    task.wait(0.1)
+
+                    local v50, v51, v52 = pairs(_petsFolder.Unique:GetChildren())
+
+                    while true do
+                        local v53
+
+                        v52, v53 = v50(v51, v52)
+
+                        if v52 == nil then
+                            break
+                        end
+                        if v53.Name == p49 then
+                            _equipPetEvent:FireServer('equipPet', v53)
+                            task.wait(0.05)
+                        end
+                    end
+                end
+            end
+            local function u56(p55)
+                if _machinesFolder then
+                    return _machinesFolder:FindFirstChild(p55)
+                else
+                    return nil
+                end
+            end
+            local function u58()
+                local _Character2 = _LocalPlayer2.Character
+
+                if _Character2 and _Character2:FindFirstChild('Humanoid') then
+                    return _Character2.Humanoid.Sit
+                else
+                    return false
+                end
+            end
+            local function u62(p59)
+                local _Character3 = _LocalPlayer2.Character
+
+                if _Character3 and _Character3:FindFirstChild('HumanoidRootPart') then
+                    if not u58() then
+                        _Character3.HumanoidRootPart.CFrame = p59.interactSeat.CFrame * CFrame.new(0, 3, 0)
+
+                        task.wait(0.5)
+                    end
+
+                    _VirtualInputManager:SendKeyEvent(true, 'E', false, game)
+                    task.wait(0.1)
+                    _VirtualInputManager:SendKeyEvent(false, 'E', false, game)
+
+                    local v61 = 5
+
+                    while not u58() and 0 < v61 do
+                        task.wait(0.1)
+
+                        v61 = v61 - 0.1
+                    end
+                end
+            end
+            local function u68()
+                while isGrinding do
+                    local v63 = 10000 + 5000 * u18.Value
+
+                    if _ultimatesFolder and _ultimatesFolder:FindFirstChild('Golden Rebirth') then
+                        local _Value = _ultimatesFolder['Golden Rebirth'].Value
+
+                        v63 = math.floor(v63 - _Value * v63 * 0.1)
+                    end
+                    if u17.Value < v63 then
+                        u54('Swift Samurai')
+                    end
+
+                    local _JungleBarLift = u56('Jungle Bar Lift')
+
+                    if _JungleBarLift then
+                        u62(_JungleBarLift)
+                    end
+
+                    while u17.Value < v63 and isGrinding do
+                        for _ = 1, 20 do
+                            _muscleEvent:FireServer('rep')
+                        end
+
+                        task.wait(0.01)
+                    end
+
+                    u54('Tribal Overlord')
+
+                    local _Value2 = u18.Value
+
+                    repeat
+                        _rebirthRemote:InvokeServer('rebirthRequest')
+                        task.wait(0.1)
+                    until _Value2 < u18.Value
+
+                    task.wait(1)
+
+                    local v67 = not u58() and u56('Jungle Bar Lift')
+
+                    if v67 then
+                        u62(v67)
+                    end
+
+                    task.wait(0.5)
+                end
+            end
+            local function u70(p69)
+                isGrinding = p69
+
+                if p69 then
+                    task.spawn(u68)
+                end
+            end
+            local function u72(p71)
+                u37 = p71
+
+                if p71 then
+                    task.spawn(u38)
+                end
+            end
+            local function v73()
+                task.wait(2)
+
+                isGrinding = false
+
+                task.spawn(u68)
+            end
+
+            _LocalPlayer2.CharacterAdded:Connect(v73)
+
+            local u74 = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+            local v75 = u74:CreateWindow({
+                Name = 'DaemonOPScript | DuyCrack',
+                Icon = 7294543520,
+                LoadingTitle = 'DaemonOPVer',
+                LoadingSubtitle = 'by Daemon',
+                Theme = 'Default',
+                ConfigurationSaving = {
+                    Enabled = false,
+                    FolderName = nil,
+                    FileName = 'OPScript',
+                },
+                Discord = {
+                    Enabled = false,
+                    Invite = 'noinvitelink',
+                    RememberJoins = true,
+                },
+                KeySystem = false,
+            })
+            local _Main = v75:CreateTab('Main', 4483362458)
+
+            local function u78()
+                local _ProteinEgg = _Backpack:FindFirstChild('Protein Egg')
+
+                if _ProteinEgg then
+                    _muscleEvent:FireServer('proteinEgg', _ProteinEgg)
+                else
+                    warn('Protein Egg not found in backpack!')
+                end
+            end
+
+            local u79 = false
+
+            local function u81(p80)
+                u79 = p80
+
+                if p80 then
+                    task.spawn(function()
+                        while u79 do
+                            u78()
+                            task.wait(1800)
+                        end
+                    end)
+                end
+            end
+
+            _Main:CreateSection('Auto Egg Section', 'left')
+            _Main:CreateToggle({
+                Name = 'Enable Protein Egg Loop',
+                CurrentValue = false,
+                Flag = 'proteinEggToggle',
+                Callback = function(p82)
+                    u81(p82)
+                end,
+            })
+            _Main:CreateSection('Fast Rebirth', 'left')
+            _Main:CreateToggle({
+                Name = 'Enable Fast Rebirth',
+                CurrentValue = false,
+                Flag = 'fastRebirthToggle',
+                Callback = function(p83)
+                    u70(p83)
+                end,
+            })
+            _Main:CreateSection('Fast Grind', 'left')
+            _Main:CreateToggle({
+                Name = 'Enable Fast Grind',
+                CurrentValue = false,
+                Flag = 'fastGrindToggle',
+                Callback = function(p84)
+                    u72(p84)
+                end,
+            })
+
+            local function u90()
+                local v85, v86, v87 = ipairs({
+                    'strengthFrame',
+                    'durabilityFrame',
+                    'agilityFrame',
+                })
+
+                while true do
+                    local v88
+
+                    v87, v88 = v85(v86, v87)
+
+                    if v87 == nil then
+                        break
+                    end
+
+                    local v89 = _ReplicatedStorage:FindFirstChild(v88)
+
+                    if v89 then
+                        v89:Destroy()
+                    end
+                end
+            end
+
+            _Main:CreateSection('Frame remover', 'left')
+            _Main:CreateButton({
+                Name = 'Remove Frames',
+                Callback = function()
+                    u90()
+                end,
+            })
+
+            local function u100()
+                if _petsFolder then
+                    local v91 = _petsFolder
+                    local v92, v93, v94 = pairs(v91:GetChildren())
+
+                    while true do
+                        local v95
+
+                        v94, v95 = v92(v93, v94)
+
+                        if v94 == nil then
+                            break
+                        end
+                        if v95:IsA('Folder') then
+                            local v96, v97, v98 = pairs(v95:GetChildren())
+
+                            while true do
+                                local v99
+
+                                v98, v99 = v96(v97, v98)
+
+                                if v98 == nil then
+                                    break
+                                end
+
+                                _equipPetEvent:FireServer('unequipPet', v99)
+                            end
+                        end
+                    end
+                end
+
+                task.wait(0.1)
+            end
+
+            _Main:CreateSection('Pets modify', 'left')
+            _Main:CreateButton({
+                Name = 'Unequip All Pets',
+                Callback = function()
+                    u100()
+                end,
+            })
+
+            local function u106(p101)
+                if _petsFolder and _petsFolder:FindFirstChild('Unique') then
+                    u100()
+                    task.wait(0.1)
+
+                    local v102, v103, v104 = pairs(_petsFolder.Unique:GetChildren())
+
+                    while true do
+                        local v105
+
+                        v104, v105 = v102(v103, v104)
+
+                        if v104 == nil then
+                            break
+                        end
+                        if v105.Name == p101 then
+                            _equipPetEvent:FireServer('equipPet', v105)
+                            task.wait(0.05)
+                        end
+                    end
+                end
+            end
+
+            _Main:CreateButton({
+                Name = 'Equip All Swift Samurai',
+                Callback = function()
+                    u106('Swift Samurai')
+                end,
+            })
+            task.spawn(u68)
+
+            local _GlitchingTab = v75:CreateTab('Glitching Tab', 4483362458)
+            local u108 = {
+                ['Muscle King Rock'] = 'Muscle King Mountain',
+                ['Ancient Jungle Rock'] = 'Ancient Jungle Rock',
+                ['Legends Rock'] = 'Rock Of Legends',
+                ['Inferno Rock'] = 'Inferno Rock',
+            }
+            local u109 = 'Select'
+
+            _GlitchingTab:CreateDropdown({
+                Name = 'Select Rock',
+                Options = {
+                    'Select',
+                    'Muscle King Rock',
+                    'Ancient Jungle Rock',
+                    'Legends Rock',
+                    'Inferno Rock',
+                },
+                CurrentOption = {
+                    'Select',
+                },
+                MultipleOptions = false,
+                Flag = 'RockDropdown',
+                Callback = function(p110)
+                    u109 = p110[1]
+
+                    if u109 ~= 'Select' then
+                        Notification:Notify('Rock Selected', 'You selected: ' .. u109, 'rbxassetid://4483362458')
+                    end
+                end,
+            })
+
+            local u111 = false
+
+            _GlitchingTab:CreateToggle({
+                Name = 'Connect to Rock',
+                CurrentValue = false,
+                Flag = 'ConnectRockToggle',
+                Callback = function(p112)
+                    u111 = p112
+
+                    if p112 and u109 ~= 'Select' then
+                        task.spawn(function()
+                            local _LocalPlayer3 = game.Players.LocalPlayer
+                            local v114 = _LocalPlayer3.Character or _LocalPlayer3.CharacterAdded:Wait()
+                            local _Rock = workspace.machinesFolder[u108[u109] ]:FindFirstChild('Rock')
+
+                            if _Rock then
+                                _Rock.Anchored = true
+                                _Rock.CanCollide = true
+                                _Rock.Massless = false
+                                _Rock.Transparency = 0
+
+                                local _rockGui = _Rock:FindFirstChild('rockGui')
+
+                                if _rockGui then
+                                    _rockGui:Destroy()
+                                end
+
+                                while u111 do
+                                    if v114 and (v114:FindFirstChild('LeftHand') and v114:FindFirstChild('RightHand')) then
+                                        firetouchinterest(v114.LeftHand, _Rock, 0)
+                                        firetouchinterest(v114.RightHand, _Rock, 0)
+                                        task.wait(0.1)
+                                        firetouchinterest(v114.LeftHand, _Rock, 1)
+                                        firetouchinterest(v114.RightHand, _Rock, 1)
+                                    end
+
+                                    task.wait(0.1)
+                                end
+                            end
+                        end)
+                    end
+                end,
+            })
+
+            local u117 = false
+
+            _GlitchingTab:CreateToggle({
+                Name = 'Auto Punch',
+                CurrentValue = false,
+                Flag = 'AutoPunchToggle',
+                Callback = function(p118)
+                    u117 = p118
+
+                    if p118 then
+                        task.spawn(function()
+                            local _LocalPlayer4 = game.Players.LocalPlayer
+
+                            while u117 do
+                                if _LocalPlayer4.Character then
+                                    local _Humanoid = _LocalPlayer4.Character:FindFirstChildOfClass('Humanoid')
+                                    local v121, v122, v123 = pairs(_LocalPlayer4.Backpack:GetChildren())
+
+                                    while true do
+                                        local v124
+
+                                        v123, v124 = v121(v122, v123)
+
+                                        if v123 == nil then
+                                            break
+                                        end
+                                        if v124:IsA('Tool') and v124.Name == 'Punch' then
+                                            _Humanoid:EquipTool(v124)
+                                        end
+                                    end
+
+                                    local _Punch = _LocalPlayer4.Character:FindFirstChild('Punch')
+
+                                    if _Punch then
+                                        _Punch:Activate()
+                                        task.wait(0.01)
+                                        _Punch:Activate()
+                                    end
+
+                                    _LocalPlayer4.muscleEvent:FireServer('punch', 'leftHand')
+                                    _LocalPlayer4.muscleEvent:FireServer('punch', 'rightHand')
+                                    task.wait(0.01)
+                                end
+                            end
+                        end)
+                    end
+                end,
+            })
+
+            local function u135()
+                if _petsFolder then
+                    local v126 = _petsFolder
+                    local v127, v128, v129 = pairs(v126:GetChildren())
+
+                    while true do
+                        local v130
+
+                        v129, v130 = v127(v128, v129)
+
+                        if v129 == nil then
+                            break
+                        end
+                        if v130:IsA('Folder') then
+                            local v131, v132, v133 = pairs(v130:GetChildren())
+
+                            while true do
+                                local v134
+
+                                v133, v134 = v131(v132, v133)
+
+                                if v133 == nil then
+                                    break
+                                end
+
+                                _equipPetEvent:FireServer('unequipPet', v134)
+                            end
+                        end
+                    end
+                end
+
+                task.wait(0.1)
+            end
+            local function u141(p136)
+                u135()
+                task.wait(0.1)
+
+                if _petsFolder and _petsFolder:FindFirstChild('Unique') then
+                    local v137, v138, v139 = pairs(_petsFolder.Unique:GetChildren())
+
+                    while true do
+                        local v140
+
+                        v139, v140 = v137(v138, v139)
+
+                        if v139 == nil then
+                            break
+                        end
+                        if v140.Name == p136 and (v140:FindFirstChild('level') and (v140:FindFirstChild('exp') and (v140.level.Value == 1 and v140.exp.Value == 0))) then
+                            _equipPetEvent:FireServer('equipPet', v140)
+                            task.wait(0.05)
+                        end
+                    end
+                end
+            end
+            local function u151()
+                u135()
+                task.wait(0.1)
+
+                if _petsFolder and _petsFolder:FindFirstChild('Unique') then
+                    local v142, v143, v144 = pairs(_petsFolder.Unique:GetChildren())
+                    local v145 = {}
+
+                    while true do
+                        local v146
+
+                        v144, v146 = v142(v143, v144)
+
+                        if v144 == nil then
+                            break
+                        end
+                        if not v146:FindFirstChild('PackOwned') and (v146:FindFirstChild('level') and (v146:FindFirstChild('exp') and (v146.level.Value == 1 and v146.exp.Value == 0))) then
+                            table.insert(v145, v146)
+                        end
+                    end
+
+                    for v147 = #v145, 2, -1 do
+                        local v148 = math.random(1, v147)
+                        local v149 = v145[v148]
+
+                        v145[v148] = v145[v147]
+                        v145[v147] = v149
+                    end
+                    for v150 = 1, math.min(#v145, 8)do
+                        _equipPetEvent:FireServer('equipPet', v145[v150])
+                        task.wait(0.05)
+                    end
+                end
+            end
+
+            _GlitchingTab:CreateButton({
+                Name = 'Equip Neon Guardian',
+                Callback = function()
+                    u141('Neon Guardian')
+                end,
+            })
+            _GlitchingTab:CreateButton({
+                Name = 'Equip Darkstar Hunter',
+                Callback = function()
+                    u141('Darkstar Hunter')
+                end,
+            })
+            _GlitchingTab:CreateButton({
+                Name = 'Equip Gold Warrior',
+                Callback = function()
+                    u141('Gold Warrior')
+                end,
+            })
+            _GlitchingTab:CreateButton({
+                Name = 'Equip Electro Bunny',
+                Callback = function()
+                    u141('Electro Bunny')
+                end,
+            })
+            _GlitchingTab:CreateButton({
+                Name = 'Equip Flaming Hedgehog',
+                Callback = function()
+                    u141('Flaming Hedgehog')
+                end,
+            })
+            _GlitchingTab:CreateButton({
+                Name = 'Equip 8 Random Unique Pets (Level 1, 0 EXP)',
+                Callback = function()
+                    u151()
+                end,
+            })
+
+            local _GainedStats = v75:CreateTab('Gained Stats', 4483362458)
+
+            _GainedStats:CreateSection('Script Status', 'left')
+
+            local _ScriptRunningTime000000 = _GainedStats:CreateLabel('Script Running Time: 00:00:00')
+            local _FPS0 = _GainedStats:CreateLabel('FPS: 0')
+
+            _GainedStats:CreateSection('Live Stats', 'left')
+
+            local _TotalStrengthGained0 = _GainedStats:CreateLabel('Total Strength Gained: 0')
+            local _TotalRebirthsGained0 = _GainedStats:CreateLabel('Total Rebirths Gained: 0')
+            local _TotalDurabilityGained0 = _GainedStats:CreateLabel('Total Durability Gained: 0')
+            local _RepsPerSecond0 = _GainedStats:CreateLabel('Reps Per Second: 0')
+            local u159 = 0
+            local u160 = 0
+            local u161 = 0
+            local _Value3 = u17.Value
+            local _Value4 = u18.Value
+            local u164 = _leaderstats:FindFirstChild('Durability') and (_leaderstats.Durability.Value or 0) or 0
+            local u165 = 0
+            local u166 = tick()
+
+            local function u171(p167)
+                local v168 = math.floor(p167 / 3600)
+                local v169 = math.floor(p167 % 3600 / 60)
+                local v170 = p167 % 60
+
+                return string.format('%02d:%02d:%02d', v168, v169, v170)
+            end
+            local function u172()
+                return math.floor(workspace:GetRealPhysicsFPS())
+            end
+
+            task.spawn(function()
+                while true do
+                    local _Value5 = u17.Value
+                    local _Value6 = u18.Value
+                    local v175 = _leaderstats:FindFirstChild('Durability') and _leaderstats.Durability.Value or 0
+                    local v176 = _Value5 - _Value3
+                    local v177 = _Value6 - _Value4
+                    local v178 = v175 - u164
+
+                    if v176 > 0 then
+                        u159 = u159 + v176
+                    end
+                    if v177 > 0 then
+                        u160 = u160 + v177
+                    end
+                    if v178 > 0 then
+                        u161 = u161 + v178
+                    end
+
+                    u165 = 0 < v176 and v176 and v176 or 0
+
+                    _ScriptRunningTime000000:Set('Script Running Time: ' .. u171(tick() - u166))
+                    _TotalStrengthGained0:Set('Total Strength Gained: ' .. u159)
+                    _TotalRebirthsGained0:Set('Total Rebirths Gained: ' .. u160)
+                    _TotalDurabilityGained0:Set('Total Durability Gained: ' .. u161)
+                    _RepsPerSecond0:Set('Reps Per Second: ' .. math.floor(u165))
+                    _FPS0:Set('FPS: ' .. u172())
+
+                    _Value3 = _Value5
+                    _Value4 = _Value6
+                    u164 = v175
+
+                    task.wait(0.1)
+                end
+            end)
+
+            local _StatsTracker = v75:CreateTab(' Stats Tracker')
+            local _Players2 = game:GetService('Players')
+            local _LocalPlayer5 = _Players2.LocalPlayer
+
+            local function u183(p182)
+                if p182 >= 1000000000000000 then
+                    return string.format('%.2fQa', p182 / 1000000000000000)
+                elseif p182 >= 1000000000000 then
+                    return string.format('%.2fT', p182 / 1000000000000)
+                elseif p182 >= 1000000000 then
+                    return string.format('%.2fB', p182 / 1000000000)
+                elseif p182 >= 1000000 then
+                    return string.format('%.2fM', p182 / 1000000)
+                elseif p182 >= 1000 then
+                    return string.format('%.2fK', p182 / 1000)
+                else
+                    return tostring(p182)
+                end
+            end
+            local function u192(p184)
+                local _leaderstats2 = p184:FindFirstChild('leaderstats')
+                local v186 = p184:FindFirstChild('Agility') and (p184.Agility.Value or 'N/A') or 'N/A'
+                local v187 = p184:FindFirstChild('Durability') and (p184.Durability.Value or 'N/A') or 'N/A'
+
+                if not _leaderstats2 then
+                    return nil
+                end
+
+                local v188 = _leaderstats2:FindFirstChild('Strength') and (_leaderstats2.Strength.Value or 0) or 0
+                local v189 = _leaderstats2:FindFirstChild('Rebirths') and (_leaderstats2.Rebirths.Value or 0) or 0
+                local v190 = _leaderstats2:FindFirstChild('Kills') and (_leaderstats2.Kills.Value or 0) or 0
+                local v191 = _leaderstats2:FindFirstChild('Brawls') and _leaderstats2.Brawls.Value or 0
+
+                return {
+                    Strength = u183(v188),
+                    Rebirths = u183(v189),
+                    Kills = u183(v190),
+                    Brawls = u183(v191),
+                    Agility = u183(v186),
+                    Durability = u183(v187),
+                    DisplayName = p184.DisplayName,
+                }
+            end
+
+            local _PlayerNA = _StatsTracker:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Player: N/A')
+            local _StrengthNA = _StatsTracker:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Strength: N/A')
+            local _RebirthsNA = _StatsTracker:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Rebirths: N/A')
+            local _KillsNA = _StatsTracker:CreateLabel('\u{2694}\u{fe0f} Kills: N/A')
+            local _BrawlsNA = _StatsTracker:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Brawls: N/A')
+            local _AgilityNA = _StatsTracker:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Agility: N/A')
+            local _DurabilityNA = _StatsTracker:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fe0f} Durability: N/A')
+
+            local function u202(p200)
+                local v201 = u192(p200)
+
+                if v201 then
+                    _PlayerNA:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Player: ' .. v201.DisplayName .. ' (' .. p200.Name .. ')')
+                    _StrengthNA:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Strength: ' .. v201.Strength)
+                    _RebirthsNA:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Rebirths: ' .. v201.Rebirths)
+                    _KillsNA:Set('\u{2694}\u{fe0f} Kills: ' .. v201.Kills)
+                    _BrawlsNA:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Brawls: ' .. v201.Brawls)
+                    _AgilityNA:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Agility: ' .. v201.Agility)
+                    _DurabilityNA:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fe0f} Durability: ' .. v201.Durability)
+                else
+                    u74:Notify({
+                        Title = '\u{26a0}\u{fe0f} No Stats Found',
+                        Content = p200.Name .. ' has no stats available.',
+                        Duration = 3,
+                    })
+                end
+            end
+
+            local u205 = _StatsTracker:CreateDropdown({
+                Name = 'Select Player \u{25bc}',
+                Options = {},
+                CurrentOption = {},
+                MultipleOptions = false,
+                Flag = 'PlayerDropdown',
+                Callback = function(p203)
+                    if p203 and #p203 ~= 0 then
+                        local v204 = _Players2:FindFirstChild((p203[1]:match('%((.-)%)')))
+
+                        if v204 then
+                            u202(v204)
+                        else
+                            u74:Notify({
+                                Title = '\u{26a0}\u{fe0f} Player Not Found',
+                                Content = 'The player you selected is no longer in the server.',
+                                Duration = 3,
+                            })
+                        end
+                    end
+                end,
+            })
+
+            local function v212()
+                local v206 = _Players2
+                local v207, v208, v209 = ipairs(v206:GetPlayers())
+                local v210 = {}
+
+                while true do
+                    local v211
+
+                    v209, v211 = v207(v208, v209)
+
+                    if v209 == nil then
+                        break
+                    end
+                    if v211 ~= _LocalPlayer5 then
+                        table.insert(v210, v211.DisplayName .. ' (' .. v211.Name .. ')')
+                    end
+                end
+
+                u205:Refresh(v210)
+                u74:Notify({
+                    Title = '\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Player List Updated',
+                    Content = 'Player list has been refreshed.',
+                    Duration = 2,
+                })
+            end
+
+            _StatsTracker:CreateButton({
+                Name = '\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Refresh Player List',
+                Callback = v212,
+            })
+            v212()
+
+            local _openCrystalRemote = game:GetService('ReplicatedStorage'):WaitForChild('rEvents'):WaitForChild('openCrystalRemote')
+            local v214 = {
+                'Jungle Crystal',
+                'Mythical Crystal',
+                'Muscle Elite Crystal',
+                'Legends Crystal',
+                'Inferno Crystal',
+                'Green Crystal',
+                'Galaxy Oracle Crystal',
+                'Frost Crystal',
+            }
+            local u215 = v214[1]
+            local u216 = false
+            local _HatchTab = v75:CreateTab('Hatch Tab', 4483362458)
+
+            _HatchTab:CreateDropdown({
+                Name = 'Select Crystal',
+                Options = v214,
+                CurrentOption = {
+                    v214[1],
+                },
+                MultipleOptions = false,
+                Flag = 'CrystalDropdown',
+                Callback = function(p218)
+                    u215 = p218[1]
+                end,
+            })
+            _HatchTab:CreateToggle({
+                Name = 'Auto Open Crystal',
+                CurrentValue = false,
+                Flag = 'AutoHatchToggle',
+                Callback = function(p219)
+                    u216 = p219
+
+                    if u216 then
+                        task.spawn(function()
+                            while u216 do
+                                pcall(function()
+                                    _openCrystalRemote:InvokeServer('openCrystal', u215)
+                                end)
+                                task.wait(0.1)
+                            end
+                        end)
+                    end
+                end,
+            })
+
+            local u220 = false
+
+            local function u221()
+                while u220 do
+                    game:GetService('ReplicatedStorage').rEvents.openFortuneWheelRemote:InvokeServer('openFortuneWheel', game:GetService('ReplicatedStorage').fortuneWheelChances['Fortune Wheel'])
+                    task.wait(1)
+                end
+            end
+
+            local _MiscTab = v75:CreateTab('Misc Tab', 4483362458)
+
+            _MiscTab:CreateToggle({
+                Name = 'Auto Spin Wheel',
+                CurrentValue = false,
+                Flag = 'AutoFortuneToggle',
+                Callback = function(p223)
+                    u220 = p223
+
+                    if u220 then
+                        task.spawn(u221)
+                    end
+                end,
+            })
+
+            local _LocalPlayer6 = game:GetService('Players').LocalPlayer
+            local _ReplicatedStorage2 = game:GetService('ReplicatedStorage')
+            local u226 = {
+                ['Energy Shake'] = 'energyShake',
+                ['Protein Shake'] = 'proteinShake',
+                ['TOUGH Bar'] = 'toughBar',
+                ['ULTRA Shake'] = 'ultraShake',
+                ['Tropical Shake'] = 'tropicalShake',
+                ['Energy Bar'] = 'energyBar',
+                ['Protein Bar'] = 'toughBar',
+            }
+
+            local function u231(p227)
+                if _LocalPlayer6.Character then
+                    local _inFortuneAnim = _LocalPlayer6:WaitForChild('inFortuneAnim')
+                    local _muscleEvent2 = _LocalPlayer6:WaitForChild('muscleEvent')
+                    local v230 = _LocalPlayer6.Character:WaitForChild('Humanoid'):LoadAnimation(_ReplicatedStorage2:WaitForChild('gameAnims'):WaitForChild('Tools'):WaitForChild(p227.Name):WaitForChild('eat'))
+
+                    if not _inFortuneAnim.Value then
+                        _muscleEvent2:FireServer(u226[p227.Name], p227)
+                        v230:Play()
+                        p227:Destroy()
+                    end
+                end
+            end
+            local function u236()
+                if _LocalPlayer6.Backpack then
+                    local v232, v233, v234 = ipairs(_LocalPlayer6.Backpack:GetChildren())
+
+                    while true do
+                        local v235
+
+                        v234, v235 = v232(v233, v234)
+
+                        if v234 == nil then
+                            break
+                        end
+                        if u226[v235.Name] then
+                            u231(v235)
+                        end
+                    end
+                end
+            end
+
+            _MiscTab:CreateButton({
+                Name = 'Eat All (Except Eggs)',
+                Callback = function()
+                    u236()
+                end,
+            })
+
+            local _VirtualUser = game:GetService('VirtualUser')
+            local _LocalPlayer7 = game:GetService('Players').LocalPlayer
+
+            local function u239()
+                _LocalPlayer7.Idled:Connect(function()
+                    _VirtualUser:CaptureController()
+                    _VirtualUser:ClickButton2(Vector2.new())
+                end)
+            end
+            local function u240()
+                _LocalPlayer7.Idled:Disconnect()
+            end
+
+            _MiscTab:CreateToggle({
+                Name = 'Auto AFK',
+                CurrentValue = false,
+                Flag = 'AutoAFK',
+                Callback = function(p241)
+                    if p241 then
+                        u239()
+                    else
+                        u240()
+                    end
+                end,
+            })
+            _MiscTab:CreateToggle({
+                Name = 'Toggle Chat System',
+                CurrentValue = false,
+                Flag = 'ChatSystem',
+                Callback = function(p242)
+                    if p242 then
+                        game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+                    else
+                        game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+                    end
+                end,
+            })
+            workspace.RobloxForwardPortals.Portal1:Destroy()
+        elseif p7 == 'Buyer' then
+            local _ReplicatedStorage3 = game:GetService('ReplicatedStorage')
+            local _Players3 = game:GetService('Players')
+            local _VirtualInputManager2 = game:GetService('VirtualInputManager')
+            local _LocalPlayer8 = _Players3.LocalPlayer
+            local _Lighting2 = game:GetService('Lighting')
+            local _rebirthRemote2 = _ReplicatedStorage3.rEvents.rebirthRemote
+            local _muscleEvent3 = _LocalPlayer8:FindFirstChild('muscleEvent')
+            local _equipPetEvent2 = _ReplicatedStorage3.rEvents.equipPetEvent
+            local _leaderstats3 = _LocalPlayer8:FindFirstChild('leaderstats')
+            local u252
+
+            if _leaderstats3 then
+                u252 = _leaderstats3:FindFirstChild('Strength')
+            else
+                u252 = _leaderstats3
+            end
+
+            local u253
+
+            if _leaderstats3 then
+                u253 = _leaderstats3:FindFirstChild('Rebirths')
+            else
+                u253 = _leaderstats3
+            end
+
+            local _petsFolder2 = _LocalPlayer8:FindFirstChild('petsFolder')
+            local _ultimatesFolder2 = _LocalPlayer8:FindFirstChild('ultimatesFolder')
+            local _machinesFolder2 = workspace:FindFirstChild('machinesFolder')
+            local _Backpack2 = _LocalPlayer8:WaitForChild('Backpack')
+
+            _Lighting2.GlobalShadows = false
+            _Lighting2.Brightness = 0.5
+            _Lighting2.TimeOfDay = '14:00'
+
+            task.spawn(function()
+                local v258, v259, v260 = pairs(workspace:GetDescendants())
+
+                while true do
+                    local v261
+
+                    v260, v261 = v258(v259, v260)
+
+                    if v260 == nil then
+                        break
+                    end
+                    if v261:IsA('ParticleEmitter') or (v261:IsA('Beam') or (v261:IsA('Trail') or (v261:IsA('Decal') or (v261:IsA('Texture') or v261:IsA('BillboardGui'))))) then
+                        v261:Destroy()
+                    elseif v261:IsA('BasePart') then
+                        v261.Material = Enum.Material.SmoothPlastic
+                        v261.CastShadow = false
+                    end
+                end
+            end)
+            task.spawn(function()
+                local v262, v263, v264 = pairs(workspace:GetDescendants())
+
+                while true do
+                    local v265
+
+                    v264, v265 = v262(v263, v264)
+
+                    if v264 == nil then
+                        break
+                    end
+
+                    local v266 = v265.Name:lower()
+
+                    if v266:find('trail') or v266:find('aura') then
+                        v265:Destroy()
+                    end
+                end
+            end)
+            task.spawn(function()
+                while true do
+                    local _Character4 = _LocalPlayer8.Character
+
+                    if _Character4 then
+                        _Character4 = _LocalPlayer8.Character:FindFirstChild('HumanoidRootPart')
+                    end
+                    if _Character4 then
+                        local v268, v269, v270 = pairs(workspace:GetChildren())
+
+                        while true do
+                            local v271
+
+                            v270, v271 = v268(v269, v270)
+
+                            if v270 == nil then
+                                break
+                            end
+                            if (v271:IsA('Model') or v271:IsA('Part')) and (_Character4.Position - v271.Position).Magnitude > 250 then
+                                v271:Destroy()
+                            end
+                        end
+                    end
+
+                    task.wait(3)
+                end
+            end)
+
+            local u272 = false
+
+            local function u273()
+                while u272 do
+                    for _ = 1, 10 do
+                        _muscleEvent3:FireServer('rep', 75)
+                    end
+
+                    task.wait(0.005)
+                end
+            end
+            local function u283()
+                if _petsFolder2 then
+                    local v274 = _petsFolder2
+                    local v275, v276, v277 = pairs(v274:GetChildren())
+
+                    while true do
+                        local v278
+
+                        v277, v278 = v275(v276, v277)
+
+                        if v277 == nil then
+                            break
+                        end
+                        if v278:IsA('Folder') then
+                            local v279, v280, v281 = pairs(v278:GetChildren())
+
+                            while true do
+                                local v282
+
+                                v281, v282 = v279(v280, v281)
+
+                                if v281 == nil then
+                                    break
+                                end
+
+                                _equipPetEvent2:FireServer('unequipPet', v282)
+                            end
+                        end
+                    end
+                end
+
+                task.wait(0.1)
+            end
+            local function u289(p284)
+                if _petsFolder2 and _petsFolder2:FindFirstChild('Unique') then
+                    u283()
+                    task.wait(0.1)
+
+                    local v285, v286, v287 = pairs(_petsFolder2.Unique:GetChildren())
+
+                    while true do
+                        local v288
+
+                        v287, v288 = v285(v286, v287)
+
+                        if v287 == nil then
+                            break
+                        end
+                        if v288.Name == p284 then
+                            _equipPetEvent2:FireServer('equipPet', v288)
+                            task.wait(0.05)
+                        end
+                    end
+                end
+            end
+            local function u291(p290)
+                if _machinesFolder2 then
+                    return _machinesFolder2:FindFirstChild(p290)
+                else
+                    return nil
+                end
+            end
+            local function u293()
+                local _Character5 = _LocalPlayer8.Character
+
+                if _Character5 and _Character5:FindFirstChild('Humanoid') then
+                    return _Character5.Humanoid.Sit
+                else
+                    return false
+                end
+            end
+            local function u297(p294)
+                local _Character6 = _LocalPlayer8.Character
+
+                if _Character6 and _Character6:FindFirstChild('HumanoidRootPart') then
+                    if not u293() then
+                        _Character6.HumanoidRootPart.CFrame = p294.interactSeat.CFrame * CFrame.new(0, 3, 0)
+
+                        task.wait(0.5)
+                    end
+
+                    _VirtualInputManager2:SendKeyEvent(true, 'E', false, game)
+                    task.wait(0.1)
+                    _VirtualInputManager2:SendKeyEvent(false, 'E', false, game)
+
+                    local v296 = 5
+
+                    while not u293() and 0 < v296 do
+                        task.wait(0.1)
+
+                        v296 = v296 - 0.1
+                    end
+                end
+            end
+            local function u303()
+                while isGrinding do
+                    local v298 = 10000 + 5000 * u253.Value
+
+                    if _ultimatesFolder2 and _ultimatesFolder2:FindFirstChild('Golden Rebirth') then
+                        local _Value7 = _ultimatesFolder2['Golden Rebirth'].Value
+
+                        v298 = math.floor(v298 - _Value7 * v298 * 0.1)
+                    end
+                    if u252.Value < v298 then
+                        u289('Swift Samurai')
+                    end
+
+                    local _JungleBarLift2 = u291('Jungle Bar Lift')
+
+                    if _JungleBarLift2 then
+                        u297(_JungleBarLift2)
+                    end
+
+                    while u252.Value < v298 and isGrinding do
+                        for _ = 1, 20 do
+                            _muscleEvent3:FireServer('rep')
+                        end
+
+                        task.wait(0.01)
+                    end
+
+                    u289('Tribal Overlord')
+
+                    local _Value8 = u253.Value
+
+                    repeat
+                        _rebirthRemote2:InvokeServer('rebirthRequest')
+                        task.wait(0.1)
+                    until _Value8 < u253.Value
+
+                    task.wait(1)
+
+                    local v302 = not u293() and u291('Jungle Bar Lift')
+
+                    if v302 then
+                        u297(v302)
+                    end
+
+                    task.wait(0.5)
+                end
+            end
+            local function u305(p304)
+                isGrinding = p304
+
+                if p304 then
+                    task.spawn(u303)
+                end
+            end
+            local function u307(p306)
+                u272 = p306
+
+                if p306 then
+                    task.spawn(u273)
+                end
+            end
+            local function v308()
+                task.wait(2)
+
+                isGrinding = false
+
+                task.spawn(u303)
+            end
+
+            _LocalPlayer8.CharacterAdded:Connect(v308)
+
+            local u309 = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+            local v310 = u309:CreateWindow({
+                Name = 'DaemonOPScript',
+                Icon = 7294543520,
+                LoadingTitle = 'DaemonOPVer',
+                LoadingSubtitle = 'by Daemon',
+                Theme = 'Default',
+                ConfigurationSaving = {
+                    Enabled = false,
+                    FolderName = nil,
+                    FileName = 'OPScript',
+                },
+                Discord = {
+                    Enabled = false,
+                    Invite = 'noinvitelink',
+                    RememberJoins = true,
+                },
+                KeySystem = false,
+            })
+            local _Main2 = v310:CreateTab('Main', 4483362458)
+
+            local function u313()
+                local _ProteinEgg2 = _Backpack2:FindFirstChild('Protein Egg')
+
+                if _ProteinEgg2 then
+                    _muscleEvent3:FireServer('proteinEgg', _ProteinEgg2)
+                else
+                    warn('Protein Egg not found in backpack!')
+                end
+            end
+
+            local u314 = false
+
+            local function u316(p315)
+                u314 = p315
+
+                if p315 then
+                    task.spawn(function()
+                        while u314 do
+                            u313()
+                            task.wait(1800)
+                        end
+                    end)
+                end
+            end
+
+            _Main2:CreateSection('Auto Egg Section', 'left')
+            _Main2:CreateToggle({
+                Name = 'Enable Protein Egg Loop',
+                CurrentValue = false,
+                Flag = 'proteinEggToggle',
+                Callback = function(p317)
+                    u316(p317)
+                end,
+            })
+            _Main2:CreateSection('Fast Rebirth', 'left')
+            _Main2:CreateToggle({
+                Name = 'Enable Fast Rebirth',
+                CurrentValue = false,
+                Flag = 'fastRebirthToggle',
+                Callback = function(p318)
+                    u305(p318)
+                end,
+            })
+            _Main2:CreateSection('Fast Grind', 'left')
+            _Main2:CreateToggle({
+                Name = 'Enable Fast Grind',
+                CurrentValue = false,
+                Flag = 'fastGrindToggle',
+                Callback = function(p319)
+                    u307(p319)
+                end,
+            })
+
+            local function u325()
+                local v320, v321, v322 = ipairs({
+                    'strengthFrame',
+                    'durabilityFrame',
+                    'agilityFrame',
+                })
+
+                while true do
+                    local v323
+
+                    v322, v323 = v320(v321, v322)
+
+                    if v322 == nil then
+                        break
+                    end
+
+                    local v324 = _ReplicatedStorage3:FindFirstChild(v323)
+
+                    if v324 then
+                        v324:Destroy()
+                    end
+                end
+            end
+
+            _Main2:CreateSection('Frame remover', 'left')
+            _Main2:CreateButton({
+                Name = 'Remove Frames',
+                Callback = function()
+                    u325()
+                end,
+            })
+
+            local function u335()
+                if _petsFolder2 then
+                    local v326 = _petsFolder2
+                    local v327, v328, v329 = pairs(v326:GetChildren())
+
+                    while true do
+                        local v330
+
+                        v329, v330 = v327(v328, v329)
+
+                        if v329 == nil then
+                            break
+                        end
+                        if v330:IsA('Folder') then
+                            local v331, v332, v333 = pairs(v330:GetChildren())
+
+                            while true do
+                                local v334
+
+                                v333, v334 = v331(v332, v333)
+
+                                if v333 == nil then
+                                    break
+                                end
+
+                                _equipPetEvent2:FireServer('unequipPet', v334)
+                            end
+                        end
+                    end
+                end
+
+                task.wait(0.1)
+            end
+
+            _Main2:CreateSection('Pets modify', 'left')
+            _Main2:CreateButton({
+                Name = 'Unequip All Pets',
+                Callback = function()
+                    u335()
+                end,
+            })
+
+            local function u341(p336)
+                if _petsFolder2 and _petsFolder2:FindFirstChild('Unique') then
+                    u335()
+                    task.wait(0.1)
+
+                    local v337, v338, v339 = pairs(_petsFolder2.Unique:GetChildren())
+
+                    while true do
+                        local v340
+
+                        v339, v340 = v337(v338, v339)
+
+                        if v339 == nil then
+                            break
+                        end
+                        if v340.Name == p336 then
+                            _equipPetEvent2:FireServer('equipPet', v340)
+                            task.wait(0.05)
+                        end
+                    end
+                end
+            end
+
+            _Main2:CreateButton({
+                Name = 'Equip All Swift Samurai',
+                Callback = function()
+                    u341('Swift Samurai')
+                end,
+            })
+            task.spawn(u303)
+
+            local _GlitchingTab2 = v310:CreateTab('Glitching Tab', 4483362458)
+            local u343 = {
+                ['Muscle King Rock'] = 'Muscle King Mountain',
+                ['Ancient Jungle Rock'] = 'Ancient Jungle Rock',
+                ['Legends Rock'] = 'Rock Of Legends',
+                ['Inferno Rock'] = 'Inferno Rock',
+            }
+            local u344 = 'Select'
+
+            _GlitchingTab2:CreateDropdown({
+                Name = 'Select Rock',
+                Options = {
+                    'Select',
+                    'Muscle King Rock',
+                    'Ancient Jungle Rock',
+                    'Legends Rock',
+                    'Inferno Rock',
+                },
+                CurrentOption = {
+                    'Select',
+                },
+                MultipleOptions = false,
+                Flag = 'RockDropdown',
+                Callback = function(p345)
+                    u344 = p345[1]
+
+                    if u344 ~= 'Select' then
+                        Notification:Notify('Rock Selected', 'You selected: ' .. u344, 'rbxassetid://4483362458')
+                    end
+                end,
+            })
+
+            local u346 = false
+
+            _GlitchingTab2:CreateToggle({
+                Name = 'Connect to Rock',
+                CurrentValue = false,
+                Flag = 'ConnectRockToggle',
+                Callback = function(p347)
+                    u346 = p347
+
+                    if p347 and u344 ~= 'Select' then
+                        task.spawn(function()
+                            local _LocalPlayer9 = game.Players.LocalPlayer
+                            local v349 = _LocalPlayer9.Character or _LocalPlayer9.CharacterAdded:Wait()
+                            local _Rock2 = workspace.machinesFolder[u343[u344] ]:FindFirstChild('Rock')
+
+                            if _Rock2 then
+                                _Rock2.Anchored = true
+                                _Rock2.CanCollide = true
+                                _Rock2.Massless = false
+                                _Rock2.Transparency = 0
+
+                                local _rockGui2 = _Rock2:FindFirstChild('rockGui')
+
+                                if _rockGui2 then
+                                    _rockGui2:Destroy()
+                                end
+
+                                while u346 do
+                                    if v349 and (v349:FindFirstChild('LeftHand') and v349:FindFirstChild('RightHand')) then
+                                        firetouchinterest(v349.LeftHand, _Rock2, 0)
+                                        firetouchinterest(v349.RightHand, _Rock2, 0)
+                                        task.wait(0.1)
+                                        firetouchinterest(v349.LeftHand, _Rock2, 1)
+                                        firetouchinterest(v349.RightHand, _Rock2, 1)
+                                    end
+
+                                    task.wait(0.1)
+                                end
+                            end
+                        end)
+                    end
+                end,
+            })
+
+            local u352 = false
+
+            _GlitchingTab2:CreateToggle({
+                Name = 'Auto Punch',
+                CurrentValue = false,
+                Flag = 'AutoPunchToggle',
+                Callback = function(p353)
+                    u352 = p353
+
+                    if p353 then
+                        task.spawn(function()
+                            local _LocalPlayer10 = game.Players.LocalPlayer
+
+                            while u352 do
+                                if _LocalPlayer10.Character then
+                                    local _Humanoid2 = _LocalPlayer10.Character:FindFirstChildOfClass('Humanoid')
+                                    local v356, v357, v358 = pairs(_LocalPlayer10.Backpack:GetChildren())
+
+                                    while true do
+                                        local v359
+
+                                        v358, v359 = v356(v357, v358)
+
+                                        if v358 == nil then
+                                            break
+                                        end
+                                        if v359:IsA('Tool') and v359.Name == 'Punch' then
+                                            _Humanoid2:EquipTool(v359)
+                                        end
+                                    end
+
+                                    local _Punch2 = _LocalPlayer10.Character:FindFirstChild('Punch')
+
+                                    if _Punch2 then
+                                        _Punch2:Activate()
+                                        task.wait(0.01)
+                                        _Punch2:Activate()
+                                    end
+
+                                    _LocalPlayer10.muscleEvent:FireServer('punch', 'leftHand')
+                                    _LocalPlayer10.muscleEvent:FireServer('punch', 'rightHand')
+                                    task.wait(0.01)
+                                end
+                            end
+                        end)
+                    end
+                end,
+            })
+
+            local function u370()
+                if _petsFolder2 then
+                    local v361 = _petsFolder2
+                    local v362, v363, v364 = pairs(v361:GetChildren())
+
+                    while true do
+                        local v365
+
+                        v364, v365 = v362(v363, v364)
+
+                        if v364 == nil then
+                            break
+                        end
+                        if v365:IsA('Folder') then
+                            local v366, v367, v368 = pairs(v365:GetChildren())
+
+                            while true do
+                                local v369
+
+                                v368, v369 = v366(v367, v368)
+
+                                if v368 == nil then
+                                    break
+                                end
+
+                                _equipPetEvent2:FireServer('unequipPet', v369)
+                            end
+                        end
+                    end
+                end
+
+                task.wait(0.1)
+            end
+            local function u376(p371)
+                u370()
+                task.wait(0.1)
+
+                if _petsFolder2 and _petsFolder2:FindFirstChild('Unique') then
+                    local v372, v373, v374 = pairs(_petsFolder2.Unique:GetChildren())
+
+                    while true do
+                        local v375
+
+                        v374, v375 = v372(v373, v374)
+
+                        if v374 == nil then
+                            break
+                        end
+                        if v375.Name == p371 and (v375:FindFirstChild('level') and (v375:FindFirstChild('exp') and (v375.level.Value == 1 and v375.exp.Value == 0))) then
+                            _equipPetEvent2:FireServer('equipPet', v375)
+                            task.wait(0.05)
+                        end
+                    end
+                end
+            end
+            local function u386()
+                u370()
+                task.wait(0.1)
+
+                if _petsFolder2 and _petsFolder2:FindFirstChild('Unique') then
+                    local v377, v378, v379 = pairs(_petsFolder2.Unique:GetChildren())
+                    local v380 = {}
+
+                    while true do
+                        local v381
+
+                        v379, v381 = v377(v378, v379)
+
+                        if v379 == nil then
+                            break
+                        end
+                        if not v381:FindFirstChild('PackOwned') and (v381:FindFirstChild('level') and (v381:FindFirstChild('exp') and (v381.level.Value == 1 and v381.exp.Value == 0))) then
+                            table.insert(v380, v381)
+                        end
+                    end
+
+                    for v382 = #v380, 2, -1 do
+                        local v383 = math.random(1, v382)
+                        local v384 = v380[v383]
+
+                        v380[v383] = v380[v382]
+                        v380[v382] = v384
+                    end
+                    for v385 = 1, math.min(#v380, 8)do
+                        _equipPetEvent2:FireServer('equipPet', v380[v385])
+                        task.wait(0.05)
+                    end
+                end
+            end
+
+            _GlitchingTab2:CreateButton({
+                Name = 'Equip Neon Guardian',
+                Callback = function()
+                    u376('Neon Guardian')
+                end,
+            })
+            _GlitchingTab2:CreateButton({
+                Name = 'Equip Darkstar Hunter',
+                Callback = function()
+                    u376('Darkstar Hunter')
+                end,
+            })
+            _GlitchingTab2:CreateButton({
+                Name = 'Equip Gold Warrior',
+                Callback = function()
+                    u376('Gold Warrior')
+                end,
+            })
+            _GlitchingTab2:CreateButton({
+                Name = 'Equip Electro Bunny',
+                Callback = function()
+                    u376('Electro Bunny')
+                end,
+            })
+            _GlitchingTab2:CreateButton({
+                Name = 'Equip Flaming Hedgehog',
+                Callback = function()
+                    u376('Flaming Hedgehog')
+                end,
+            })
+            _GlitchingTab2:CreateButton({
+                Name = 'Equip 8 Random Unique Pets (Level 1, 0 EXP)',
+                Callback = function()
+                    u386()
+                end,
+            })
+
+            local _GainedStats2 = v310:CreateTab('Gained Stats', 4483362458)
+
+            _GainedStats2:CreateSection('Script Status', 'left')
+
+            local _ScriptRunningTime0000002 = _GainedStats2:CreateLabel('Script Running Time: 00:00:00')
+            local _FPS02 = _GainedStats2:CreateLabel('FPS: 0')
+
+            _GainedStats2:CreateSection('Live Stats', 'left')
+
+            local _TotalStrengthGained02 = _GainedStats2:CreateLabel('Total Strength Gained: 0')
+            local _TotalRebirthsGained02 = _GainedStats2:CreateLabel('Total Rebirths Gained: 0')
+            local _TotalDurabilityGained02 = _GainedStats2:CreateLabel('Total Durability Gained: 0')
+            local _RepsPerSecond02 = _GainedStats2:CreateLabel('Reps Per Second: 0')
+            local u394 = 0
+            local u395 = 0
+            local u396 = 0
+            local _Value9 = u252.Value
+            local _Value10 = u253.Value
+            local u399 = _leaderstats3:FindFirstChild('Durability') and (_leaderstats3.Durability.Value or 0) or 0
+            local u400 = 0
+            local u401 = tick()
+
+            local function u406(p402)
+                local v403 = math.floor(p402 / 3600)
+                local v404 = math.floor(p402 % 3600 / 60)
+                local v405 = p402 % 60
+
+                return string.format('%02d:%02d:%02d', v403, v404, v405)
+            end
+            local function u407()
+                return math.floor(workspace:GetRealPhysicsFPS())
+            end
+
+            task.spawn(function()
+                while true do
+                    local _Value11 = u252.Value
+                    local _Value12 = u253.Value
+                    local v410 = _leaderstats3:FindFirstChild('Durability') and _leaderstats3.Durability.Value or 0
+                    local v411 = _Value11 - _Value9
+                    local v412 = _Value12 - _Value10
+                    local v413 = v410 - u399
+
+                    if v411 > 0 then
+                        u394 = u394 + v411
+                    end
+                    if v412 > 0 then
+                        u395 = u395 + v412
+                    end
+                    if v413 > 0 then
+                        u396 = u396 + v413
+                    end
+
+                    u400 = 0 < v411 and v411 and v411 or 0
+
+                    _ScriptRunningTime0000002:Set('Script Running Time: ' .. u406(tick() - u401))
+                    _TotalStrengthGained02:Set('Total Strength Gained: ' .. u394)
+                    _TotalRebirthsGained02:Set('Total Rebirths Gained: ' .. u395)
+                    _TotalDurabilityGained02:Set('Total Durability Gained: ' .. u396)
+                    _RepsPerSecond02:Set('Reps Per Second: ' .. math.floor(u400))
+                    _FPS02:Set('FPS: ' .. u407())
+
+                    _Value9 = _Value11
+                    _Value10 = _Value12
+                    u399 = v410
+
+                    task.wait(0.1)
+                end
+            end)
+
+            local _StatsTracker2 = v310:CreateTab(' Stats Tracker')
+            local _Players4 = game:GetService('Players')
+            local _LocalPlayer11 = _Players4.LocalPlayer
+
+            local function u418(p417)
+                if p417 >= 1000000000000000 then
+                    return string.format('%.2fQa', p417 / 1000000000000000)
+                elseif p417 >= 1000000000000 then
+                    return string.format('%.2fT', p417 / 1000000000000)
+                elseif p417 >= 1000000000 then
+                    return string.format('%.2fB', p417 / 1000000000)
+                elseif p417 >= 1000000 then
+                    return string.format('%.2fM', p417 / 1000000)
+                elseif p417 >= 1000 then
+                    return string.format('%.2fK', p417 / 1000)
+                else
+                    return tostring(p417)
+                end
+            end
+            local function u427(p419)
+                local _leaderstats4 = p419:FindFirstChild('leaderstats')
+                local v421 = p419:FindFirstChild('Agility') and (p419.Agility.Value or 'N/A') or 'N/A'
+                local v422 = p419:FindFirstChild('Durability') and (p419.Durability.Value or 'N/A') or 'N/A'
+
+                if not _leaderstats4 then
+                    return nil
+                end
+
+                local v423 = _leaderstats4:FindFirstChild('Strength') and (_leaderstats4.Strength.Value or 0) or 0
+                local v424 = _leaderstats4:FindFirstChild('Rebirths') and (_leaderstats4.Rebirths.Value or 0) or 0
+                local v425 = _leaderstats4:FindFirstChild('Kills') and (_leaderstats4.Kills.Value or 0) or 0
+                local v426 = _leaderstats4:FindFirstChild('Brawls') and _leaderstats4.Brawls.Value or 0
+
+                return {
+                    Strength = u418(v423),
+                    Rebirths = u418(v424),
+                    Kills = u418(v425),
+                    Brawls = u418(v426),
+                    Agility = u418(v421),
+                    Durability = u418(v422),
+                    DisplayName = p419.DisplayName,
+                }
+            end
+
+            local _PlayerNA2 = _StatsTracker2:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Player: N/A')
+            local _StrengthNA2 = _StatsTracker2:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Strength: N/A')
+            local _RebirthsNA2 = _StatsTracker2:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Rebirths: N/A')
+            local _KillsNA2 = _StatsTracker2:CreateLabel('\u{2694}\u{fe0f} Kills: N/A')
+            local _BrawlsNA2 = _StatsTracker2:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Brawls: N/A')
+            local _AgilityNA2 = _StatsTracker2:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Agility: N/A')
+            local _DurabilityNA2 = _StatsTracker2:CreateLabel('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fe0f} Durability: N/A')
+
+            local function u437(p435)
+                local v436 = u427(p435)
+
+                if v436 then
+                    _PlayerNA2:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Player: ' .. v436.DisplayName .. ' (' .. p435.Name .. ')')
+                    _StrengthNA2:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Strength: ' .. v436.Strength)
+                    _RebirthsNA2:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Rebirths: ' .. v436.Rebirths)
+                    _KillsNA2:Set('\u{2694}\u{fe0f} Kills: ' .. v436.Kills)
+                    _BrawlsNA2:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Brawls: ' .. v436.Brawls)
+                    _AgilityNA2:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Agility: ' .. v436.Agility)
+                    _DurabilityNA2:Set('\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fe0f} Durability: ' .. v436.Durability)
+                else
+                    u309:Notify({
+                        Title = '\u{26a0}\u{fe0f} No Stats Found',
+                        Content = p435.Name .. ' has no stats available.',
+                        Duration = 3,
+                    })
+                end
+            end
+
+            local u440 = _StatsTracker2:CreateDropdown({
+                Name = 'Select Player \u{25bc}',
+                Options = {},
+                CurrentOption = {},
+                MultipleOptions = false,
+                Flag = 'PlayerDropdown',
+                Callback = function(p438)
+                    if p438 and #p438 ~= 0 then
+                        local v439 = _Players4:FindFirstChild((p438[1]:match('%((.-)%)')))
+
+                        if v439 then
+                            u437(v439)
+                        else
+                            u309:Notify({
+                                Title = '\u{26a0}\u{fe0f} Player Not Found',
+                                Content = 'The player you selected is no longer in the server.',
+                                Duration = 3,
+                            })
+                        end
+                    end
+                end,
+            })
+
+            local function v447()
+                local v441 = _Players4
+                local v442, v443, v444 = ipairs(v441:GetPlayers())
+                local v445 = {}
+
+                while true do
+                    local v446
+
+                    v444, v446 = v442(v443, v444)
+
+                    if v444 == nil then
+                        break
+                    end
+                    if v446 ~= _LocalPlayer11 then
+                        table.insert(v445, v446.DisplayName .. ' (' .. v446.Name .. ')')
+                    end
+                end
+
+                u440:Refresh(v445)
+                u309:Notify({
+                    Title = '\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Player List Updated',
+                    Content = 'Player list has been refreshed.',
+                    Duration = 2,
+                })
+            end
+
+            _StatsTracker2:CreateButton({
+                Name = '\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd}\u{fffd} Refresh Player List',
+                Callback = v447,
+            })
+            v447()
+
+            local _openCrystalRemote2 = game:GetService('ReplicatedStorage'):WaitForChild('rEvents'):WaitForChild('openCrystalRemote')
+            local v449 = {
+                'Jungle Crystal',
+                'Mythical Crystal',
+                'Muscle Elite Crystal',
+                'Legends Crystal',
+                'Inferno Crystal',
+                'Green Crystal',
+                'Galaxy Oracle Crystal',
+                'Frost Crystal',
+            }
+            local u450 = v449[1]
+            local u451 = false
+            local _HatchTab2 = v310:CreateTab('Hatch Tab', 4483362458)
+
+            _HatchTab2:CreateDropdown({
+                Name = 'Select Crystal',
+                Options = v449,
+                CurrentOption = {
+                    v449[1],
+                },
+                MultipleOptions = false,
+                Flag = 'CrystalDropdown',
+                Callback = function(p453)
+                    u450 = p453[1]
+                end,
+            })
+            _HatchTab2:CreateToggle({
+                Name = 'Auto Open Crystal',
+                CurrentValue = false,
+                Flag = 'AutoHatchToggle',
+                Callback = function(p454)
+                    u451 = p454
+
+                    if u451 then
+                        task.spawn(function()
+                            while u451 do
+                                pcall(function()
+                                    _openCrystalRemote2:InvokeServer('openCrystal', u450)
+                                end)
+                                task.wait(0.1)
+                            end
+                        end)
+                    end
+                end,
+            })
+
+            local u455 = false
+
+            local function u456()
+                while u455 do
+                    game:GetService('ReplicatedStorage').rEvents.openFortuneWheelRemote:InvokeServer('openFortuneWheel', game:GetService('ReplicatedStorage').fortuneWheelChances['Fortune Wheel'])
+                    task.wait(1)
+                end
+            end
+
+            local _MiscTab2 = v310:CreateTab('Misc Tab', 4483362458)
+
+            _MiscTab2:CreateToggle({
+                Name = 'Auto Spin Wheel',
+                CurrentValue = false,
+                Flag = 'AutoFortuneToggle',
+                Callback = function(p458)
+                    u455 = p458
+
+                    if u455 then
+                        task.spawn(u456)
+                    end
+                end,
+            })
+
+            local _LocalPlayer12 = game:GetService('Players').LocalPlayer
+            local _ReplicatedStorage4 = game:GetService('ReplicatedStorage')
+            local u461 = {
+                ['Energy Shake'] = 'energyShake',
+                ['Protein Shake'] = 'proteinShake',
+                ['TOUGH Bar'] = 'toughBar',
+                ['ULTRA Shake'] = 'ultraShake',
+                ['Tropical Shake'] = 'tropicalShake',
+                ['Energy Bar'] = 'energyBar',
+                ['Protein Bar'] = 'toughBar',
+            }
+
+            local function u466(p462)
+                if _LocalPlayer12.Character then
+                    local _inFortuneAnim2 = _LocalPlayer12:WaitForChild('inFortuneAnim')
+                    local _muscleEvent4 = _LocalPlayer12:WaitForChild('muscleEvent')
+                    local v465 = _LocalPlayer12.Character:WaitForChild('Humanoid'):LoadAnimation(_ReplicatedStorage4:WaitForChild('gameAnims'):WaitForChild('Tools'):WaitForChild(p462.Name):WaitForChild('eat'))
+
+                    if not _inFortuneAnim2.Value then
+                        _muscleEvent4:FireServer(u461[p462.Name], p462)
+                        v465:Play()
+                        p462:Destroy()
+                    end
+                end
+            end
+            local function u471()
+                if _LocalPlayer12.Backpack then
+                    local v467, v468, v469 = ipairs(_LocalPlayer12.Backpack:GetChildren())
+
+                    while true do
+                        local v470
+
+                        v469, v470 = v467(v468, v469)
+
+                        if v469 == nil then
+                            break
+                        end
+                        if u461[v470.Name] then
+                            u466(v470)
+                        end
+                    end
+                end
+            end
+
+            _MiscTab2:CreateButton({
+                Name = 'Eat All (Except Eggs)',
+                Callback = function()
+                    u471()
+                end,
+            })
+
+            local _VirtualUser2 = game:GetService('VirtualUser')
+            local _LocalPlayer13 = game:GetService('Players').LocalPlayer
+
+            local function u474()
+                _LocalPlayer13.Idled:Connect(function()
+                    _VirtualUser2:CaptureController()
+                    _VirtualUser2:ClickButton2(Vector2.new())
+                end)
+            end
+            local function u475()
+                _LocalPlayer13.Idled:Disconnect()
+            end
+
+            _MiscTab2:CreateToggle({
+                Name = 'Auto AFK',
+                CurrentValue = false,
+                Flag = 'AutoAFK',
+                Callback = function(p476)
+                    if p476 then
+                        u474()
+                    else
+                        u475()
+                    end
+                end,
+            })
+            _MiscTab2:CreateToggle({
+                Name = 'Toggle Chat System',
+                CurrentValue = false,
+                Flag = 'ChatSystem',
+                Callback = function(p477)
+                    if p477 then
+                        game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+                    else
+                        game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+                    end
+                end,
+            })
+            workspace.RobloxForwardPortals.Portal1:Destroy()
+
+            local u478 = 'https://raw.githubusercontent.com/BobbieTun/Whitelist/main/BuyerScript.lua'
+            local v479, v480 = pcall(function()
+                return loadstring(game:HttpGet(u478))()
+            end)
+
+            if not v479 then
+                warn('Failed to load Buyer script:', v480)
+            end
+        end
+    end
+
+    if v5[_LocalPlayer.Name] then
+        v481('Owner')
+        game:GetService('StarterGui'):SetCore('SendNotification', {
+            Title = 'Whitelisted ',
+            Text = 'Welcome, Owner!',
+            Duration = 5,
+            Icon = 'rbxassetid://7294543520',
+        })
+    elseif v6[_LocalPlayer.Name] then
+        v481('Buyer')
+        game:GetService('StarterGui'):SetCore('SendNotification', {
+            Title = 'Whitelisted ',
+            Text = 'Welcome, Buyer!',
+            Duration = 5,
+            Icon = 'rbxassetid://7294543520',
+        })
+    else
+        _LocalPlayer:Kick('You are not whitelisted!')
+    end
+end
